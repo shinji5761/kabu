@@ -1,0 +1,11 @@
+{
+    "appenders" : {
+        "batch" : {
+            "type" : "file"
+           ,"filename" : "/Users/shinji5761/program/kabu/log/batch.log"
+       }
+   }
+   ,"categories": { 
+        "default": { "appenders": ["batch"], "level": "all" }
+    }
+}

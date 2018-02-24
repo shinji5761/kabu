@@ -1,0 +1,12 @@
+@startuml
+    package "Common" #EEEEEE {
+        class Logger {
+            - type : String
+            + Logger(type : String)
+            + void printInfo(cName : String, mName : String, message : String)
+            + void printError(cName : String, mName : String, message : String)
+            + String createMessage(cName : String, mName : String, message : String)
+            
+        }
+    }
+@enduml

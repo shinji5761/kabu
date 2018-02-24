@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle icon-only (click)="openMenu()">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>View</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- 設定ボタン -->
+    <ion-fab>
+        <button ion-fab mini (click)="onClickMenuButton()">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-fab>
+    
+    <!-- <div *ngFor="let param of viewConfig.chartOption">
+        <p>{{param.label}} : {{param.value}}</p>
+    </div> -->
+    <!-- チャート -->
+    <google-chart [data]="chartData"></google-chart>
+
+</ion-content>
+

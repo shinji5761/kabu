@@ -1,0 +1,84 @@
+@startuml
+
+    package "Common" #EEEEEE {
+        abstract Class Controller {
+            - url : string
+            - Controller(url : string)
+            + {abstract} void get(request, response)
+            + {abstract} void post(request, response)
+            + {abstract} void put(request, response)
+            + {abstract} void delete(request, response)
+        }
+        note top of Controller
+            UIとの受け口となる｡
+        end note
+
+        abstract Class Service {
+            + {abstract} void get(param)
+            + {abstract} void post(param)
+            + {abstract} void put(param)
+            + {abstract} void delete(param)
+        }
+        note top of Service
+            ControllerとDaoの橋渡し
+        end note
+    }
+
+    package "User" #EEEEEE {
+        Class UserController {
+            <<import>> - LOGGER : LOGGER 
+            + void get(request, response)
+            + void post(request, response)
+            + void put(request, response)
+            + void delete(request, response)
+        }
+        Class UserService {
+            <<import>> - LOGGER : LOGGER
+
+        }
+    }
+    Controller <|-- UserController
+    Service <|-- UserService
+
+
+    package "Brand" #EEEEEE {
+        Class BrandController {
+            <<import>> - LOGGER : LOGGER 
+            + void get(request, response)
+            + void post(request, response)
+            + void put(request, response)
+            + void delete(request, response)
+        }
+        Class BrandService {
+            <<import>> - LOGGER : LOGGER
+
+        }
+    }
+    Controller <|-- BrandController
+    Service <|-- BrandService
+
+
+    package "Exchange" #EEEEEE {
+        Class ExchangeEntity {
+            - symbols : string
+            - price : number
+            - ask : number
+            - bid : number
+            - timestamp : number
+        }
+        Class ExchangeController {
+            <<import>> - LOGGER : LOGGER 
+            + void get(request, response)
+            + void post(request, response)
+            + void put(request, response)
+            + void delete(request, response)
+        }
+        Class ExchangeService {
+            <<import>> - LOGGER : LOGGER
+        }
+        Controller <|-- ExchangeController
+        Service <|-- ExchangeService
+
+    }
+
+@enduml

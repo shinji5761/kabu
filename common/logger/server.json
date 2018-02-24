@@ -1,0 +1,11 @@
+{
+    "appenders" : {
+        "server" : {
+             "type" : "file"
+            ,"filename" : "/Users/shinji5761/program/kabu/log/server.log"
+        }
+   }
+   ,"categories": { 
+        "default": { "appenders": ["server"], "level": "all" }
+    }
+}

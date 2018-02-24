@@ -1,0 +1,40 @@
+@startuml
+    class User {
+        - id : String
+        - password : String
+        - name : String
+        - eMail : String
+        - googleAccount : String
+    }
+
+
+    class Brand {
+        - code : String
+        - name : String
+    }
+
+    class Stock {
+        - date : Date
+        - open : Decimal
+        - high : Decimal
+        - low : Decimal
+        - close : Decimal
+        - volume : Integer
+    }
+    Brand "1" -- "*" Stock
+
+    class Trade {
+        - id : Integer
+        - code : Brand.code
+        - date : Date
+        - price : Decimal
+        - volume : Integer
+        - type : Integer
+    }
+    note left of Trade
+        type ･･･ 売買種別 (0:売､1:買)
+    end note
+    User "1" -- "*" Trade
+
+
+@endumlÎ

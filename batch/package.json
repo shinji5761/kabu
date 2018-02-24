@@ -1,0 +1,20 @@
+{
+  "name": "batch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "forex-quotes": "^1.0.2",
+    "http": "0.0.0",
+    "pg": "^7.4.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.5.2"
+  }
+}

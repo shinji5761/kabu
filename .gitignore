@@ -1,0 +1,13 @@
+### common ###
+*/node_modules/
+**/*.js
+
+### ui ###
+ui/resources/
+
+### server ###
+server/Oauth.json
+
+### other ###
+log/
+.vscode

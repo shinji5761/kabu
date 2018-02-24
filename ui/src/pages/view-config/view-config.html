@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>チャートオプション</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="close()">
+                    <ion-icon name="close"></ion-icon>
+                </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- チャートオプション -->
+    <ion-list>
+        <ion-item *ngFor="let chart of viewConfig.chartOption">
+            <ion-label>{{chart.label}}</ion-label>
+            <ion-checkbox [(ngModel)]="chart.value"></ion-checkbox>
+        </ion-item>
+    </ion-list>
+    <!-- 表示間隔オプション -->
+    <ion-list radio-group [(ngModel)]="selectedIntervalKey" (ionChange)="changeIntervalOption()">
+        <ion-item *ngFor="let interval of viewConfig.intervalOption">
+            <ion-label>{{interval.label}}</ion-label>
+            <ion-radio [value]="interval.key"></ion-radio>
+        </ion-item>
+    </ion-list>
+</ion-content>

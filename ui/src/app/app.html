@@ -1,0 +1,16 @@
+<ion-menu [content]="contents">
+    <ion-header>
+        <ion-title>Menu</ion-title>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item *ngFor="let menu of menuList">
+                <button ion-button full (click)="changePage(menu.page)" [disabled]="(nav.root.name == menu.page.name)">
+                    {{menu.label}}
+                </button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #contents [root]="rootPage"></ion-nav>
