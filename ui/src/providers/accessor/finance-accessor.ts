@@ -8,7 +8,7 @@ import { CommonAccessor } from './common-accessor';
 import { IAccessor } from './i-accessor';
 
 // RequestParam
-import { FinanceParam } from '../../../../common/requestParam/FinanceParam';
+import { FinanceParam } from '../../../../common/requestParam/finance/FinanceParam';
 
 export class FinanceAccessor extends CommonAccessor implements IAccessor {
     constructor(http : HttpClient) {

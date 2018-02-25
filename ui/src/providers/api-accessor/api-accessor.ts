@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 // Provider
 import { ExchangeAccessor } from '../accessor/exchange-accessor';
 import { FinanceAccessor } from '../accessor/finance-accessor';
+import { OnlineAccessor } from '../accessor/online-accessor';
 
 
 /*
@@ -26,4 +27,9 @@ export class ApiAccessorProvider {
   public getFinanceAccessor() : FinanceAccessor {
       return new FinanceAccessor(this.http);
   }
+
+    public getOnlineAccessor() : FinanceAccessor {
+        return new OnlineAccessor(this.http);
+    }
+
 }

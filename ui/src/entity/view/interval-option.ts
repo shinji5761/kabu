@@ -6,22 +6,22 @@ export class IntervalOption {
      * キー
      * 為替情報を取得するさいに
      * 検索するキーとなる｡
-     * @type {String}
+     * @type { string }
      */
-    key : String = '';
+    key : string = '';
     /**
      * ラベル
-     * @type {String}
+     * @type { string }
      */
-    label : String = '';
+    label : string = '';
     
     /**
      * 選択状態
-     * @type {boolean}
+     * @type { boolean }
      */
     value : boolean = false;
 
-    constructor(key : String, label : String, value : boolean) {
+    constructor(key : string, label : string, value : boolean) {
         this.key = key;
         this.label = label;
         this.value = value;

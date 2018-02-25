@@ -20,6 +20,8 @@ import { ExchangeController } from './src/main/exchange/ExchangeController';
 const exchangeCtrl = new ExchangeController();
 import { FinanceController } from './src/main/finance/FinanceController';
 const financeCtrl = new FinanceController();
+import { OnlineController } from './src/main/online/OnlineController';
+const onlineCtrl = new OnlineController();
 
 // app const
 const app = express();
@@ -128,6 +130,7 @@ class Main {
         app.get(userCtrl.getUrl(), userCtrl.get);
         app.get(exchangeCtrl.getUrl(), exchangeCtrl.get);
         app.get(financeCtrl.getUrl(), financeCtrl.get);
+        app.get(onlineCtrl.getUrl(), onlineCtrl.get);
 
 
 

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS finance;
+DROP TABLE IF EXISTS finance CASCADE;
 CREATE TABLE finance (
       code      VARCHAR(10) -- 銘柄コード
     , market    VARCHAR(10) -- 市場

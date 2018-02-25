@@ -19,7 +19,9 @@
         <p>{{param.label}} : {{param.value}}</p>
     </div> -->
     <!-- チャート -->
-    <google-chart [data]="chartData"></google-chart>
+    <div *ngIf="chartData">
+        <google-chart [data]="chartData"></google-chart>
+    </div>
 
 </ion-content>
 

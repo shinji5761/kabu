@@ -2,7 +2,7 @@
 import { Dao } from '../common/Dao';
 
 // Finance
-import { FinanceParam } from '../../../../common/requestParam/FinanceParam';
+import { FinanceParam } from '../../../../common/requestParam/finance/FinanceParam';
 
 // Logger
 import { Logger } from '../../../../common/logger/Logger';

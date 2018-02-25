@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS online;
+DROP TABLE IF EXISTS online CASCADE;
 CREATE TABLE online (
       code VARCHAR(10)  -- 取引通貨
     -- , time TIMESTAMP    -- 時刻
@@ -6,7 +6,7 @@ CREATE TABLE online (
     , hour INTEGER      -- 時
     , min  INTEGER      -- 分
     , sec  INTEGER      -- 秒
-    , opne FLOAT        -- 始値
+    , open FLOAT        -- 始値
     , high FLOAT        -- 高値
     , ask  FLOAT        -- 買値
     , bid  FLOAT        -- 売値

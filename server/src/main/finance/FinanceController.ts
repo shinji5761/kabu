@@ -6,7 +6,7 @@ import { FinanceEntity }   from './FinanceEntity';
 import { FinanceDao }      from './FinanceDao';
 import { FinanceService }  from './FinanceService';
 
-import { FinanceParam }    from '../../../../common/requestParam/FinanceParam';
+import { FinanceParam }    from '../../../../common/requestParam/finance/FinanceParam';
 
 const dao = new FinanceDao();
 const service = new FinanceService();

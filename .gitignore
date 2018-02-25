@@ -4,6 +4,11 @@
 
 ### ui ###
 ui/resources/
+ui/.sourcemaps/
+ui/platforms/
+ui/plugins/
+ui/resources/
+ui/www/
 
 ### server ###
 server/Oauth.json

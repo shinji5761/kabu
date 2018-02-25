@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS exchange;
+DROP TABLE IF EXISTS exchange CASCADE;
 CREATE TABLE exchange (
       symbol  VARCHAR(6)
     , bid   FLOAT
