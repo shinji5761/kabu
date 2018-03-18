@@ -5,4 +5,4 @@
 # node ./src/main/index.js 6103 TYO 600 1D
 
 ## online
-node ./src/main/index.js
+/usr/local/bin/node /Users/shinji5761/program/kabu/batch/src/main/index.js

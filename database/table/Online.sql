@@ -11,4 +11,5 @@ CREATE TABLE online (
     , ask  FLOAT        -- 買値
     , bid  FLOAT        -- 売値
     , low  FLOAT        -- 安値
+    , PRIMARY KEY( code, date, hour, min, sec )
 );

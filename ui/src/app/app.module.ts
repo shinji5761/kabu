@@ -18,6 +18,7 @@ import { ViewConfigPage } from '../pages/view-config/view-config';
 
 // Provideres
 import { ViewConfigProvider } from '../providers/view-config/view-config';
+import { ViewOptionProvider } from '../providers/view-option/view-option';
 
 
 // GoogleChart
@@ -53,6 +54,7 @@ import { ApiAccessorProvider } from '../providers/api-accessor/api-accessor';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ViewConfigProvider,
+    ViewOptionProvider,
     SQLite,
     ApiAccessorProvider
   ],

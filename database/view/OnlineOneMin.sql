@@ -3,7 +3,7 @@ CREATE OR REPLACE VIEW online_one_min AS
 (
     SELECT
         o.code
-        , to_char(o.date, 'YYYY年MM月DD日') AS date
+        , to_char(o.date, 'YYYY-MM-DD') AS date
         , to_char(o.hour, '09') AS hour
         , to_char(o.min, '09') AS min
         , o.high

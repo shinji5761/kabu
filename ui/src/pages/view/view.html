@@ -8,20 +8,57 @@
 </ion-header>
 
 <ion-content padding>
-    <!-- 設定ボタン -->
-    <ion-fab>
-        <button ion-fab mini (click)="onClickMenuButton()">
-            <ion-icon name="menu"></ion-icon>
-        </button>
-    </ion-fab>
-    
-    <!-- <div *ngFor="let param of viewConfig.chartOption">
-        <p>{{param.label}} : {{param.value}}</p>
-    </div> -->
-    <!-- チャート -->
-    <div *ngIf="chartData">
-        <google-chart [data]="chartData"></google-chart>
-    </div>
+    <ion-list>
+        <ion-item>
+            <!-- チャート -->
+            <div *ngIf="chartData.dataTable.length > 1">
+                <google-chart [data]="chartData"></google-chart>
+            </div>
+        </ion-item>
 
+        <ion-grid>
+            <ion-row>
+                <ion-col *ngFor="let row of viewOption">
+                    <ion-row *ngFor="let col of row">
+                        <ion-col>
+                            <!-- Date -->
+                            <ion-item *ngIf="col.type == 'date'">
+                                <ion-label>{{col.label}}</ion-label>
+                                <ion-datetime [(ngModel)]="col.value" [displayFormat]="col.format"></ion-datetime>
+                            </ion-item>
+                            <!-- Select -->
+                            <ion-item *ngIf="col.type == 'select'">
+                                <ion-label>{{col.label}}</ion-label>
+                                <ion-select [(ngModel)]="col.selected">
+                                    <ion-option *ngFor="let option of col.options" [value]="option.value">{{option.label}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                            <!-- Buttons -->
+                            <ion-row *ngIf="col.type == 'buttons'">
+                                <ion-col *ngFor="let button of col.list" style="text-align : center">
+                                    <button ion-button [color]="button.color" (click)="button.onClick()">{{ button.label }}</button>
+                                </ion-col>
+                            </ion-row>
+                            <!-- list -->
+                            <ion-list *ngIf="col.type == 'list'" [ngStyle]="col.style">
+                                <ion-item *ngFor="let item of col.items">
+                                    <ion-row>
+                                        <ion-col>{{item.label}}</ion-col>
+                                        <ion-col *ngFor="let index of [0,1,2]">
+                                            <span *ngIf="item.params[index] != undefined">
+                                                {{item.params[index].label}} : {{item.params[index].value}}
+                                            </span>
+                                            <span *ngIf="item.params[index] == undefined">
+                                            </span>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-item>
+                            </ion-list>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-list>
 </ion-content>
 

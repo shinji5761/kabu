@@ -13,4 +13,4 @@ cat ${TABLE_PATH}/*.sql | psql -U admin kabu_db
 cat ${VIEW_PATH}/*.sql | psql -U admin kabu_db
 
 ## init data or test data
-cat ${DATA_PATH}/*.sql | psql -U admin kabu_db
+# cat ${DATA_PATH}/*.sql | psql -U admin kabu_db

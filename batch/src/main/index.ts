@@ -31,8 +31,18 @@
 import { OnlineBatch } from './online/OnlineBatch';
 
 let online = new OnlineBatch();
-let quotes : Array<any> = online.get();
-
-for(let data of quotes ) {
-    online.save(data);
-}
+let count = 0;
+let interval = setInterval(
+    () => {
+        let quotes : Array<any> = online.get();
+        
+        for(let data of quotes ) {
+            online.save(data);
+        }
+        count++;
+        if( count > ( 60 / 5 ) ) {
+            clearInterval( interval );
+        }
+    }
+    , 5000
+);

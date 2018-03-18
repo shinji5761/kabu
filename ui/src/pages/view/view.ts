@@ -18,6 +18,13 @@ import { ViewConfigPage } from '../view-config/view-config';
 // RequestParam
 import { OnlineParam } from '../../../../common/requestParam/online/OnlineParam';
 
+// ViewOption
+import { ViewOption } from '../../entity/view-option/view-option';
+import { TypeList } from '../../entity/view-option/type-list';
+import { TypeButton } from '../../entity/view-option/type-button';
+import { TypeButtons } from '../../entity/view-option/type-buttons';
+import { Emvelopes } from '../../entity/technical/emvelopes';
+import { ViewOptionProvider } from '../../providers/view-option/view-option';
 
 /**
  * @class ViewPage
@@ -27,7 +34,7 @@ import { OnlineParam } from '../../../../common/requestParam/online/OnlineParam'
 @Component({
   selector: 'page-view',
   templateUrl: 'view.html',
-  providers : [ ViewConfigProvider ]
+  providers : [ ViewConfigProvider, ViewOptionProvider ]
 })
 export class ViewPage {
 
@@ -35,13 +42,22 @@ export class ViewPage {
      * GoogleChart
      * @type { any }
      */
-    private chartData : any;
+    private chartData : any = new GoogleChartParam('', [], {});
 
     /**
      * ビューコンフィグ
      * @type { ViewConfigEntity }
      */
     private viewConfig : ViewConfigEntity = new ViewConfigEntity();
+
+    /**
+     * viewOption
+     * チャートに表示するデータの開始日やトレード種別
+     * テクニカルに関するデータをまとめる｡
+     * @type { Array<any> }
+     */
+    private viewOption : Array<any>;
+
 
     /**
      * @constructor
@@ -55,31 +71,18 @@ export class ViewPage {
         , public navParams: NavParams
         , public modalCtrl : ModalController
         , public viewConfigProvider : ViewConfigProvider
+        , public viewOptionProvider : ViewOptionProvider
         , public menuCtrl : MenuController
         , public accessor : ApiAccessorProvider) {
-        // 保存しているチャートオプションを取得する｡
-        let saveConfig = this.viewConfigProvider.query();
-        saveConfig.then(
-            ( value ) => {
-                if( value ) {
-                    this.viewConfig = value;
-                }
-                console.dir( this.viewConfig );
-                this.getViewData();
-            }
-        );
-    }
-
-    ionViewDidLoad() {
+        // 初期値設定
+        this.init();
     }
 
     /**
-     * @method saveChartOption
-     * @return { void }
+     * 画面を離れたときに呼ばれるイベントハンドラ
      */
-    private saveChartOption() : void {
-        this.viewConfigProvider.save(this.viewConfig)
-        .then(
+    ionViewDidLeave() {
+        this.saveViewOption().then(
             (result) => {
                 console.log(result);
                 // todo:保存成功を通知
@@ -90,21 +93,56 @@ export class ViewPage {
                 console.error(error);
             }
         );
+
     }
 
     /**
-     * @method getViewData
+     * 初期値設定処理
+     * @private
+     * @return { void }
+     */
+    private init() : void {
+        this.viewOption = (new ViewOption( '2018-03-01', 'USDJPY', '1min')).viewOption;
+        this.viewOption[1].push(
+            new TypeList({  'max-height' : ( ( screen.height ) - ( screen.height / 3 ) - 200 ) + 'px', 'overflow' : 'scroll' }, [ new Emvelopes() ] )
+        );
+        this.viewOption[1].push( new TypeButtons( [ new TypeButton( '追加', 'success', () => { this.addTechnical() } ), new TypeButton('削除', 'danger', () => {console.log('onDanger');}) ] ) );
+
+        // 保存しているチャートオプションを取得する｡
+        let saveConfig = this.viewOptionProvider.query();
+        saveConfig.then(
+            ( value ) => {
+                if( value ) {
+                    this.viewOption[0] = value[0];
+                    this.viewOption[1][0] = value[1][0];
+                }
+                console.dir( this.viewOption );
+                this.getViewData();
+            }
+        );
+    }
+
+    /**
+     * 
+     * @return { any }
+     */
+    private saveViewOption() : any {
+        return this.viewOptionProvider.save(this.viewOption);
+    }
+
+    /**
+     * 表示データの取得
+     * @private
      * @return { void }
      */
     private getViewData() : void {
         let api = this.accessor.getOnlineAccessor();
         let param : OnlineParam = new OnlineParam();
-        param.code = 'USDJPY';
-        param.date = '2018年01月01日';
+        param.date = this.viewOption[0][0].value;       // 日付
+        param.code = this.viewOption[0][1].value;       // 取引コード
 
         api.get(param).subscribe(
             (result) => {
-                console.dir(result);
                 // チャートデータの作成
                 this.chartData = this.createChartData(result);
             }
@@ -117,19 +155,14 @@ export class ViewPage {
      * @return { GoogleChartParam }
      */
     private createChartData(result : any) : GoogleChartParam {
-        let title : string = '';
-        for( let selected of this.viewConfig.intervalOption ) { // 選択しているタイトルを取得する｡
-            if( selected.value ) {
-                title = selected.label;
-            }
-        }
-
         let chartType : string = 'ComboChart';
         let options : any = {
-            'title' : title
-          , 'legend': 'none'
-          , 'seriesType' : 'candlesticks'
-          , 'series' : { '1' : { 'type' : 'line' } }
+              'title' : this.viewOption[0][2].selected
+            , 'width' : ( screen.width )
+            , 'height': ( screen.height / 3 )
+            , 'legend': 'none'
+            , 'seriesType' : 'candlesticks'
+            , 'series' : { '1' : { 'type' : 'line' } }
         };
         let dataTable : Array<any> = [];
         for( let data of result ) {
@@ -146,26 +179,24 @@ export class ViewPage {
         return new GoogleChartParam(chartType, dataTable, options);
     }
 
-
     /**
-     * メニューボタンクリックイベント
-     * @method onClickMenuButton
+     * 追加ボタンクリックイベント
      * @private
      * @return { void }
      */
-    private onClickMenuButton() : void {
-        console.log('Menu');
-        
-        // モーダルの実行
-        let modal = this.modalCtrl.create(ViewConfigPage, { 'viewConfig' : this.viewConfig});
-        modal.present();
-        modal.onDidDismiss(
+    private addTechnical() : void {
+        console.log('addTechnical')
+        this.saveViewOption().then(
             (result) => {
-                console.log('onClickMenuButton.onDissmiss');
-                this.saveChartOption();
+                this.getViewData();     // データの再取得
+            }
+        ).catch(
+            (error) => {
+                console.error(error);
             }
         );
     }
+
 
     /**
      * @method openMenu

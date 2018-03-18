@@ -16,3 +16,4 @@ server/Oauth.json
 ### other ###
 log/
 .vscode
+cron.txt
